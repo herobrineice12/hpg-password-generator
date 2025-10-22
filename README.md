@@ -1,6 +1,6 @@
 # HPG Password Generator
 
-For the portuguese version of this README, click here
+For the portuguese version of this README, ![click here](README.pt.md)
 
 ## Definition
 
@@ -21,6 +21,8 @@ It also can be installed as console application script, so you can integrate it 
 - Option to hide your inputs with safe mode.
 - Capability of limiting the length of your password.
 - Automatic copying mechanism for clipboard.
+- Possibility to change how the algorithms interact
+- Capability to edit the current algorithm parameters
 
 ## How it works
 
@@ -50,11 +52,11 @@ This version also adds the possibility for the user to edit the used KDFs (Key D
 
 The planning process of re-factorization was inspired by UML diagrams that I made. I did a class and a use case diagram for a general view of the project’s architecture, as shown bellow:
 
-![Classes diagram](Model2!ClassDiagram_1.jpg)
+![Classes diagram](diagrams/jpg/Model2!ClassDiagram_1.jpg)
 
 Classes diagram
 
-![Use case diagram](Model1!UseCases_0.jpg)
+![Use case diagram](diagrams/jpg/Model1!UseCases_0.jpg)
 
 Use case diagram
 
