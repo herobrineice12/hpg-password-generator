@@ -1,0 +1,305 @@
+{
+    "config": {
+        "safe_mode": false,
+        "key_number": 5,
+        "pref_base": "b85",
+        "pass_limit": 256,
+        "pref_lang": "eng",
+        "algorithm": [
+            "blake",
+            "argon"
+        ],
+        "algorithm_parameters": {
+            "key_hasher": {
+                "blake": {
+                    "iteration": 400000,
+                    "digest_size": 64
+                },
+                "hmac": {
+                    "iterations": 100000,
+                    "dklen": 64
+                },
+                "argon": {
+                    "time_cost": 4,
+                    "memory_cost": 85000,
+                    "parallelism": 1,
+                    "hash_len": 64
+                }
+            },
+            "pass_hasher": {
+                "argon": {
+                    "time_cost": 20,
+                    "memory_cost": 256000,
+                    "parallelism": 2
+                },
+                "bcrypt": {
+                    "rounds": 60
+                },
+                "scrypt": {
+                    "n": 262144,
+                    "r": 8,
+                    "p": 2,
+                    "maxmem": 256000
+                }
+            }
+        }
+    },
+    "dialog": {
+        "main": {
+            "welcome": {
+                "eng": "Welcome to the HPG Password Generator, by herobrineice12",
+                "pt-br": "Bem vindo ao gerador de senha HPG, feito por herobrineice12"
+            },
+            "selection": {
+                "eng": "Select one operation below:",
+                "pt-br": "Selecione uma das op\u00e7\u00f5es abaixo:"
+            },
+            "read": {
+                "eng": "Type a value for: ",
+                "pt-br": "Digite um valor para: "
+            },
+            "generate_pass": {
+                "eng": "Generate password",
+                "pt-br": "Gerar senha"
+            },
+            "generate_hash": {
+                "eng": "Generate hash",
+                "pt-br": "Gerar hash"
+            },
+            "configuration": {
+                "eng": "Adjust settings",
+                "pt-br": "Ajustar configura\u00e7\u00f5es"
+            },
+            "yes": {
+                "eng": "Yes",
+                "pt-br": "Sim"
+            },
+            "no": {
+                "eng": "No",
+                "pt-br": "N\u00e3o"
+            },
+            "edit": {
+                "eng": "Edit",
+                "pt-br": "Editar"
+            },
+            "back": {
+                "eng": "Go back",
+                "pt-br": "Voltar"
+            },
+            "exit": {
+                "eng": "Exit",
+                "pt-br": "Sair"
+            },
+            "delivery": {
+                "eng": "Here is your password:",
+                "pt-br": "Aqui est\u00e1 a sua senha"
+            },
+            "length": {
+                "eng": "This password has a length of: ",
+                "pt-br": "Essa senha tem um comprimento de valor: "
+            },
+            "continue": {
+                "eng": "Press enter to continue",
+                "pt-br": "Pressione enter para continuar"
+            }
+        },
+        "password": {
+            "print_confirmation": {
+                "eng": "Do you want to display the password? (y,n): ",
+                "pt-br": "Gostaria de revelar a senha? (s,n): "
+            },
+            "context": {
+                "eng": "context",
+                "pt-br": "contexto"
+            },
+            "key1": {
+                "eng": "first key",
+                "pt-br": "primeira chave"
+            },
+            "key2": {
+                "eng": "second key",
+                "pt-br": "segunda chave"
+            },
+            "key3": {
+                "eng": "third key",
+                "pt-br": "terceira chave"
+            },
+            "master_key": {
+                "eng": "master key",
+                "pt-br": "chave principal"
+            }
+        },
+        "hash": {
+            "confirmation": {
+                "eng": "Would you like to generate a hash?",
+                "pt-br": "Gostaria de gerar um hash?"
+            },
+            "calculations": {
+                "eng": "Select the number (in bits) of possible calculations (1-32):",
+                "pt-br": "Selecione o n\u00famero (em bits) de c\u00e1lculos poss\u00edveis (1-32):"
+            },
+            "message": {
+                "eng": "Write a message to be used in the hash (optional):",
+                "pt-br": "Escreva uma mensagem para ser usada no hash (opcional): "
+            },
+            "clear": {
+                "eng": "Clear hash",
+                "pt-br": "Limpar hash"
+            }
+        },
+        "configuration": {
+            "menu": {
+                "main": {
+                    "eng": "Select one option to configure, type '0' to go back",
+                    "pt-br": "Selecione uma das op\u00e7\u00f5es a seguir, digite 0 para voltar"
+                },
+                "current": {
+                    "eng": "Current value for this setting:",
+                    "pt-br": "Valor atual para essa configura\u00e7\u00e3o:"
+                }
+            },
+            "safe": {
+                "safe_setting": {
+                    "eng": "Toggle safe mode",
+                    "pt-br": "Ativar/desativar modo seguro"
+                },
+                "set_safe": {
+                    "eng": "Select which mode for safe mode you prefer, ON/OFF (y,n):",
+                    "pt-br": "Selecione o modo preferido para modo seguro, ON/OFF (s,n):"
+                }
+            },
+            "key": {
+                "key_setting": {
+                    "eng": "Number of keys to be used",
+                    "pt-br": "N\u00famero de chaves a ser usada"
+                },
+                "set_key": {
+                    "eng": "Select the number of keys (2,5):",
+                    "pt-br": "Selecione o n\u00famero de chaves usadas (2,5):"
+                }
+            },
+            "base": {
+                "base_setting": {
+                    "eng": "Set prefered decoding base",
+                    "pt-br": "Selecionar base de decodifica\u00e7\u00e3o"
+                },
+                "set_base": {
+                    "eng": "Select the prefered base:",
+                    "pt-br": "Selecione a base preferida:"
+                }
+            },
+            "limit": {
+                "password": {
+                    "eng": "Password",
+                    "pt-br": "Senha"
+                },
+                "limit_setting": {
+                    "eng": "Password limit configuration",
+                    "pt-br": "Configurar comprimento de senha"
+                },
+                "set_limit": {
+                    "eng": "Select the maximum length of the password (1-256):",
+                    "pt-br": "Escolha o limite m\u00e1ximo de senha (1-256)ww:"
+                }
+            },
+            "language": {
+                "english": {
+                    "eng": "English",
+                    "pt-br": "Ingl\u00eas"
+                },
+                "portuguese": {
+                    "eng": "Portuguese",
+                    "pt-br": "Portugu\u00eas"
+                },
+                "language_setting": {
+                    "eng": "Language settings",
+                    "pt-br": "Configura\u00e7\u00f5es de idioma"
+                },
+                "set_language": {
+                    "eng": "Select the prefered language:",
+                    "pt-br": "Selecione o idioma preferido:"
+                }
+            },
+            "algorithm": {
+                "menu": {
+                    "eng": "Select which algorithm you want to change",
+                    "pt-br": "Selecione o algoritmo que queira mudar"
+                },
+                "algo_setting": {
+                    "eng": "Configure how the algoritms interact",
+                    "pt-br": "Configure como os algor\u00edtmos interagem"
+                },
+                "set_key": {
+                    "eng": "Select which algorithm will be used to hash the keys",
+                    "pt-br": "Selecione qual algoritmo vai ser usado para o hash"
+                },
+                "set_hash": {
+                    "eng": "Select which algorithm will be used as a main for the password",
+                    "pt-br": "Selecione o principal algoritimo de hashing para a senha"
+                }
+            },
+            "algorithm_parameters": {
+                "keys_algo": {
+                    "eng": "Key's algorithm",
+                    "pt-br": "Algoritmo das chaves"
+                },
+                "pass_algo": {
+                    "eng": "Password's algorithm",
+                    "pt-br": "Algoritmo da senha"
+                },
+                "set_algo_parameters": {
+                    "eng": "Select which one of the hashers you want to be editing",
+                    "pt-br": "Selecione qual dos hashes gostaria de editar"
+                },
+                "key_hasher": {
+                    "eng": "Key hasher",
+                    "pt-br": "Hasher de chaves"
+                },
+                "pass_hasher": {
+                    "eng": "Password Hasher",
+                    "pt-br": "Hasher de senha"
+                }
+            }
+        },
+        "warning": {
+            "program_finalized": {
+                "eng": "Finishing the program\u2026",
+                "pt-br": "Finalizando o programa\u2026"
+            },
+            "key_limit": {
+                "eng": "WARNING: This script doesn't support key password",
+                "pt-br": "AVISO: Esse script n\u00e3o suporta apenas uma chave"
+            },
+            "bit_missflow": {
+                "eng": "WARNING: We only accept a range of 1 to 32 for performance reasons",
+                "pt-br": "AVISO: S\u00f3 aceitamos valores de 1 a 32 por motivos de performance"
+            },
+            "knowledge_limit": {
+                "eng": "WARNING: Only do changes to things that you understard",
+                "pt-br": "AVISO: Fa\u00e7a altera\u00e7\u00f5es apenas naquilo que conhe\u00e7a"
+            }
+        },
+        "error": {
+            "value_error": {
+                "eng": "Invalid input used",
+                "pt-br": "Valor inv\u00e1lido utilizado"
+            },
+            "limit_error": {
+                "eng": "This value is off limits",
+                "pt-br": "Valor fora de alcance"
+            },
+            "selection_error": {
+                "eng": "No available selection was choosen for: ",
+                "pt-br": "Uma sele\u00e7\u00e3o inv\u00e1lida foi criada para: "
+            },
+            "key_error": {
+                "eng": "The method get couldn't find this message in the file: ",
+                "pt-br": "O m\u00e9todo get n\u00e3o conseguiu encontrar essa mensagem no arquivo: "
+            },
+            "type_error": {
+                "eng": "Provided input is invalid for use",
+                "pt-br": "O input recebido \u00e9 inv\u00e1lido para uso"
+            }
+        }
+    }
+}
