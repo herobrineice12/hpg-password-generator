@@ -1,6 +1,6 @@
 # HPG Password Generator
 
-For the portuguese version of this README, ![click here](README.pt.md)
+Welcome to my project! By Herobrineice12
 
 ## Definition
 
