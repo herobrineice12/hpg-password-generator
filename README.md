@@ -67,6 +67,7 @@ In order to use this password generator, you’re going to need some dependencie
 - python3 interpreter
 - cffi python module
 - argon2-cffi python module
+- bcrypt python module
 - pyperclip python module
 - xclip program (Only if you are on Linux)
 - termux-api package (Only if you are on Android)
