@@ -55,11 +55,11 @@ class Password:
     class Encoder:
         @staticmethod
         def getkeyhasher():
-            hasher = Configuration.get('config','algorithm')[0]
+            hasher = Configuration.get('config','algorithm','key_hasher')
 
             def _blake_mixer(key: str=''):
                 h = key.encode()
-                iteration = Configuration.get('config','algorithm_parameters','key_hasher','blake','iteration')
+                iteration = Configuration.get('config','algorithm','parameters','key_hasher','blake','iteration')
 
                 for _ in range(iteration):
                     h = hashlib.blake2b(h,digest_size=64).digest()
@@ -74,8 +74,8 @@ class Password:
                     hash_name='sha512',
                     password=passw,
                     salt=salt,
-                    iterations=Configuration.get('config','algorithm_parameters','key_hasher','hmac','iteractions'),
-                    dklen=Configuration.get('config','algorithm_parameters','key_hasher','hmac','dklen')
+                    iterations=Configuration.get('config','algorithm','parameters','key_hasher','hmac','iteractions'),
+                    dklen=Configuration.get('config','algorithm','parameters','key_hasher','hmac','dklen')
                 )
 
             def _argon_mixer(key: str=''):
@@ -85,10 +85,10 @@ class Password:
                 return argon.hash_secret_raw(
                     secret=passw,
                     salt=salt,
-                    time_cost=Configuration.get('config','algorithm_parameters','key_hasher','argon','time_cost'),
-                    memory_cost=Configuration.get('config','algorithm_parameters','key_hasher','argon','memory_cost'),
-                    parallelism=Configuration.get('config','algorithm_parameters','key_hasher','argon','parallelism'),
-                    hash_len=Configuration.get('config','algorithm_parameters','key_hasher','argon','hash_len'),
+                    time_cost=Configuration.get('config','algorithm','parameters','key_hasher','argon','time_cost'),
+                    memory_cost=Configuration.get('config','algorithm','parameters','key_hasher','argon','memory_cost'),
+                    parallelism=Configuration.get('config','algorithm','parameters','key_hasher','argon','parallelism'),
+                    hash_len=Configuration.get('config','algorithm','parameters','key_hasher','argon','hash_len'),
                     type=Type.ID
                 )
 
@@ -104,7 +104,7 @@ class Password:
 
         @staticmethod
         def getpasshasher():
-            hasher = Configuration.get('config','algorithm')[1]
+            hasher = Configuration.get('config','algorithm','pass_hasher')
 
             def _argon_mixer(key: str='',salt: bytes=''.encode()):
                 passw = key.encode()
@@ -112,9 +112,9 @@ class Password:
                 return argon.hash_secret_raw(
                     secret=passw,
                     salt=salt,
-                    time_cost=Configuration.get('config','algorithm_parameters','pass_hasher','argon','time_cost'),
-                    memory_cost=Configuration.get('config','algorithm_parameters','pass_hasher','argon','memory_cost'),
-                    parallelism=Configuration.get('config','algorithm_parameters','pass_hasher','argon','parallelism'),
+                    time_cost=Configuration.get('config','algorithm','parameters','pass_hasher','argon','time_cost'),
+                    memory_cost=Configuration.get('config','algorithm','parameters','pass_hasher','argon','memory_cost'),
+                    parallelism=Configuration.get('config','algorithm','parameters','pass_hasher','argon','parallelism'),
                     hash_len=256,
                     type=Type.ID
                 )
@@ -125,7 +125,7 @@ class Password:
                 return bcrypt.kdf(
                     password=passw,
                     salt=salt,
-                    rounds=Configuration.get('config','algorithm_parameters','pass_hasher','bcrypt','rounds'),
+                    rounds=Configuration.get('config','algorithm','parameters','pass_hasher','bcrypt','rounds'),
                     desired_key_bytes=256
                 )
 
@@ -135,10 +135,10 @@ class Password:
                 return hashlib.scrypt(
                     password=passw,
                     salt=salt,
-                    n=Configuration.get('config','algorithm_parameters','pass_hasher','scrypt','n'),
-                    r=Configuration.get('config','algorithm_parameters','pass_hasher','scrypt','r'),
-                    p=Configuration.get('config','algorithm_parameters','pass_hasher','scrypt','p'),
-                    maxmem=Configuration.get('config','algorithm_parameters','pass_hasher','scrypt','maxmem'),
+                    n=Configuration.get('config','algorithm','parameters','pass_hasher','scrypt','n'),
+                    r=Configuration.get('config','algorithm','parameters','pass_hasher','scrypt','r'),
+                    p=Configuration.get('config','algorithm','parameters','pass_hasher','scrypt','p'),
+                    maxmem=Configuration.get('config','algorithm','parameters','pass_hasher','scrypt','maxmem'),
                     dklen=256
                 )
 

@@ -2,10 +2,10 @@
 
 
 a = Analysis(
-    ['Main.py'],
+    ['src/Main.py'],
     pathex=[],
     binaries=[],
-    datas=[('config/config.json','config')],
+    datas=[('src/config/config.json','src/config')],
     hiddenimports=['argon2-cffi','bcrypt','pyperclip','_cffi_backend'],
     hookspath=[],
     hooksconfig={},

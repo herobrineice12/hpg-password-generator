@@ -3,4 +3,5 @@
 build/
 dist/
 __pycache__/
+diagrams/diagrams_staruml.mdj
 Main.spec
