@@ -45,7 +45,7 @@ class Main:
         key_number: int = Configuration.get('config', 'key_number')
 
         read = getpass if safe_mode else input
-        print_parameter = lambda key: Configuration.get('dialog','main','read') + Configuration.get('dialog','password',key)
+        print_parameter = lambda key: f"{Configuration.get('dialog', 'main', 'read')} {Configuration.get('dialog', 'password', key)}"
 
         context: str = read(f"{print_parameter('context')} --> ")
 
@@ -72,7 +72,7 @@ class Main:
         print_password = lambda: print(
             f"\n{Configuration.get('dialog', 'main', 'delivery')}\n"
             f"\n{password}\n"
-            f"\n{Configuration.get('dialog','main','length')}{len(password)}\n"
+            f"\n{Configuration.get('dialog','main','length')} {len(password)}\n"
         )
 
         if safe_mode:
@@ -118,15 +118,23 @@ class Main:
                 f"{Configuration.get('dialog', 'hash', 'calculations')}\n --> "
             )
 
+            bit_missflow = calc > 32 or calc < 1
+
+            if bit_missflow:
+                print(Configuration.get('dialog','warning','bit_missflow'))
+                return
+
             mess: str = input(
-                f"{Configuration.get('dialog', 'hash', 'message')}\n --> "
+                f"{Configuration.get('dialog','hash','message')}\n --> "
             )
 
-            Main.master_buffer = Hashgenerator.gethash(calculations=calc,message=mess)
+            Main.master_buffer = Hashgenerator.gethash(bits=calc,message=mess)
             raise StopIteration
 
         def _clearhash() -> None:
             Main.master_buffer = None
+
+        ### Method Functionality ###
 
         Configuration.clear()
 
@@ -150,6 +158,10 @@ class Main:
 
     @staticmethod
     def settings() -> None:
+        Configuration.clear()
+
+        print(Configuration.get('dialog','configuration','menu','main'))
+
         Interface.buildmenu(
             {
                 Configuration.get('dialog', 'main', 'back'):

@@ -11,7 +11,7 @@ import (
 )
 
 func isPrime(number int) bool {
-	var limit int = int(math.RoundToEven(float64(number / 2)))
+	var limit int = int(math.Sqrt(float64(number)))
 
 	for i := 3; i <= limit; i++ {
 		if number%i == 0 {
@@ -25,7 +25,7 @@ func isPrime(number int) bool {
 //export generatePrimes
 func generatePrimes(candidates *C.int, size C.int) *C.char {
 	var length int = int(size)
-	var midpoint int = int(math.RoundToEven(float64(length / 2)))
+	var midpoint int = length / 2
 
 	var primeString1 []string
 	var primeString2 []string
@@ -36,14 +36,16 @@ func generatePrimes(candidates *C.int, size C.int) *C.char {
 		var local []string
 
 		for i := start; i < end; i++ {
-			var candidate int = *(*int)(unsafe.Pointer(uintptr(unsafe.Pointer(candidates)) + uintptr(i)*unsafe.Sizeof(int(0))))
+			var candidate C.int = *(*C.int)(unsafe.Pointer(uintptr(unsafe.Pointer(candidates)) + uintptr(i)*unsafe.Sizeof(C.int(0))))
 
-			if isPrime(candidate) {
+			if isPrime(int(candidate)) {
 				local = append(local, fmt.Sprint(candidate))
 			}
 		}
 
 		*primeString = local
+
+		waitGroup.Done()
 	}
 
 	waitGroup.Add(2)
@@ -51,13 +53,13 @@ func generatePrimes(candidates *C.int, size C.int) *C.char {
 	go loopCandidates(0, midpoint, &primeString1)
 	go loopCandidates(midpoint, length, &primeString2)
 
-	waitGroup.Done()
+	waitGroup.Wait()
 
 	var primes = append(primeString1, primeString2...)
 	var hash string = ""
 
 	for i := range primes {
-		hash += fmt.Sprint(i)
+		hash += fmt.Sprint(primes[i])
 	}
 
 	return C.CString(hash)

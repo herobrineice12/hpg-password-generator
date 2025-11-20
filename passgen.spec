@@ -5,7 +5,7 @@ a = Analysis(
     ['src/Main.py'],
     pathex=[],
     binaries=[],
-    datas=[('src/config/config.json','src/config')],
+    datas=[('src/config/config.json','src/config'),('lib/libgo.*','lib')],
     hiddenimports=['argon2-cffi','bcrypt','pyperclip','_cffi_backend'],
     hookspath=[],
     hooksconfig={},

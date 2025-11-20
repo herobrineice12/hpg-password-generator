@@ -12,35 +12,34 @@ class Hashgenerator:
     decoder: Callable[[bytes],str]
 
     @staticmethod
-    def gethash(calculations: int | None = None, message: str | None = None) -> str:
+    def gethash(bits: int | None = None, message: str | None = None) -> str:
         Hashgenerator.decoder = Configuration.get('config','pref_base','decoder')
 
-        if message and calculations is None:
+        if message and bits is None:
             return Hashgenerator.decoder(Hashgenerator._generatehash().encode())
         else:
-            bits: int = 2**calculations
-            iteractions: int = calculations**2
+            iteractions: int = 2**bits
 
             return Hashgenerator.decoder(
                 hashlib.pbkdf2_hmac(
                     hash_name="sha3_512",
-                    password=Hashgenerator._generatehash(bits).encode(),
+                    password=Hashgenerator._generatehash(bits,iteractions).encode(),
                     salt=message.encode(),
-                    iterations=512,
+                    iterations=64,
                     dklen=128
                 )
             )
 
     @staticmethod
-    def _generatehash(bits: int = 32,interactions: int = 10**4,limit: int = 10**6) -> str:
+    def _generatehash(bits: int = 32,iteractions: int = 10**4,limit: int = 10**6) -> str:
         import secrets, os, ctypes
 
         start: int = secrets.randbits(bits)
-        rounds: int = start + interactions
+        rounds: int = start + iteractions
 
         while rounds > limit:
             start = secrets.randbits(bits)
-            rounds = start + interactions
+            rounds = start + iteractions
 
         if not start & 1:
             start += 1
@@ -50,15 +49,19 @@ class Hashgenerator:
             if i % 3 != 0 and i % 5 != 0 and i % 7 != 0
         ]
 
-        dir_path: str = os.path.dirname(__file__)
-        for _ in range(2): dir_path = os.path.dirname(dir_path)
+        if getattr(sys,'frozen',False):
+            dir_path = getattr(sys, '_MEIPASS')
+        else:
+            dir_path: str = os.path.abspath(
+                os.path.join(os.path.dirname(__file__), "..", "..")
+            )
 
         lib_path: str = os.path.join(dir_path,'lib')
 
         system: str = sys.platform
         loadlib: Callable[[str],ctypes.CDLL] = lambda lb: ctypes.CDLL(os.path.join(lib_path,lb))
 
-        lib = None
+        lib: ctypes.CDLL | None = None
 
         if system == "windows":
             lib = loadlib("libgo.dll")
@@ -66,8 +69,6 @@ class Hashgenerator:
             lib = loadlib("libgo.so")
         elif system == "darwin":
             lib = loadlib("libgo.dylib")
-        else:
-            raise Exception("Not implemented system")
 
         lib.generatePrimes.argtypes = [ctypes.POINTER(ctypes.c_int),ctypes.c_int]
         lib.generatePrimes.restype = ctypes.c_char_p

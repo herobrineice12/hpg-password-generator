@@ -29,7 +29,7 @@ class _System:
             _System.path = path
 
             if getattr(sys, 'frozen', False):
-                base_path: str = getattr(sys, '_MEIPASS', sys.path[0])
+                base_path: str = getattr(sys, '_MEIPASS')
                 _System.path = os.path.join(base_path, _System.path)
 
             with open(_System.path, 'r') as file:
