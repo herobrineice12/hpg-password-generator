@@ -26,48 +26,53 @@ class Hashgenerator:
                     hash_name="sha3_512",
                     password=Hashgenerator._generatehash(bits).encode(),
                     salt=message.encode(),
-                    iterations=iteractions,
+                    iterations=512,
                     dklen=128
                 )
             )
 
     @staticmethod
-    def _generatehash(start: int = 0,rounds: int = 10**4,limit: int = 10**6) -> str:
-        import secrets
+    def _generatehash(bits: int = 32,interactions: int = 10**4,limit: int = 10**6) -> str:
+        import secrets, os, ctypes
 
-        hash_message: str = ''
-        startszero = start == 0
+        start: int = secrets.randbits(bits)
+        rounds: int = start + interactions
 
-        passlimit = lambda: start + rounds > limit
-
-        while passlimit() or startszero:
-            start = secrets.randbits(33)
-            startszero = start == 0
-            passlimit()
+        while rounds > limit:
+            start = secrets.randbits(bits)
+            rounds = start + interactions
 
         if not start & 1:
             start += 1
 
-        limit = start + limit
+        candidates = [
+            i for i in range(start,rounds,2)
+            if i % 3 != 0 and i % 5 != 0 and i % 7 != 0
+        ]
 
-        candidates = [i for i in range(start,limit,2)
-                      if i % 3 != 0 and i % 5 != 0 and i % 7 != 0]
+        dir_path: str = os.path.dirname(__file__)
+        for _ in range(2): dir_path = os.path.dirname(dir_path)
 
-        with Pool() as pool:
-            results = pool.map(Hashgenerator._isprime,candidates)
+        lib_path: str = os.path.join(dir_path,'lib')
 
-        for num, isprime in zip(candidates,results):
-            if isprime:
-                hash_message += str(num)
+        system: str = sys.platform
+        loadlib: Callable[[str],ctypes.CDLL] = lambda lb: ctypes.CDLL(os.path.join(lib_path,lb))
 
-        return hash_message
+        lib = None
 
-    @staticmethod
-    def _isprime(num: int) -> bool:
-        square: int = math.isqrt(num)
-
-        for i in range(3,square+1,2):
-            if num % i == 0:
-                return False
+        if system == "windows":
+            lib = loadlib("libgo.dll")
+        elif system == "linux":
+            lib = loadlib("libgo.so")
+        elif system == "darwin":
+            lib = loadlib("libgo.dylib")
         else:
-            return True
+            raise Exception("Not implemented system")
+
+        lib.generatePrimes.argtypes = [ctypes.POINTER(ctypes.c_int),ctypes.c_int]
+        lib.generatePrimes.restype = ctypes.c_char_p
+
+        length = len(candidates)
+        array = (ctypes.c_int * length)(*candidates)
+
+        return bytes(lib.generatePrimes(array,length)).decode()

@@ -48,257 +48,319 @@
         "main": {
             "welcome": {
                 "eng": "Welcome to the HPG Password Generator, by herobrineice12",
-                "pt-br": "Bem vindo ao gerador de senha HPG, feito por herobrineice12"
+                "pt-br": "Bem vindo ao gerador de senha HPG, feito por herobrineice12",
+                "rus": "\u0414\u043e\u0431\u0440\u043e\u0439 \u043f\u043e\u0436\u0430\u043b\u043e\u0432\u0430\u0442\u044c \u0432 \u0433\u0435\u043d\u0435\u0440\u0430\u0442\u043e\u0440 \u043f\u0430\u0440\u043e\u043b\u0435\u0439, \u0430\u0432\u0442\u043e\u0440 Herobrineice12"
             },
             "selection": {
                 "eng": "Select one operation below:",
-                "pt-br": "Selecione uma das op\u00e7\u00f5es abaixo:"
+                "pt-br": "Selecione uma das op\u00e7\u00f5es abaixo:",
+                "rus": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043e\u0434\u043d\u0438 \u0438\u0437 \u0446\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0445:"
             },
             "read": {
-                "eng": "Type a value for: ",
-                "pt-br": "Digite um valor para: "
+                "eng": "Type a value for:",
+                "pt-br": "Digite um valor para:",
+                "rus": "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0437\u043d\u0430\u0447\u0435\u043d\u0438\u0435 \u0434\u043b\u044f:"
             },
             "generate_pass": {
                 "eng": "Generate password",
-                "pt-br": "Gerar senha"
+                "pt-br": "Gerar senha",
+                "rus": "\u0426\u0433\u0435\u043d\u0435\u0440\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u043f\u0430\u0440\u043e\u043b\u044c"
             },
             "generate_hash": {
                 "eng": "Generate hash",
-                "pt-br": "Gerar hash"
+                "pt-br": "Gerar hash",
+                "rus": "\u0413\u0435\u043d\u0435\u0440\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0445\u044d\u0448"
             },
             "configuration": {
                 "eng": "Adjust settings",
-                "pt-br": "Ajustar configura\u00e7\u00f5es"
+                "pt-br": "Ajustar configura\u00e7\u00f5es",
+                "rus": "\u041d\u0430\u0441\u0442\u0440\u043e\u0438\u0442\u044c \u043f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u044b"
             },
             "yes": {
                 "eng": "Yes",
-                "pt-br": "Sim"
+                "pt-br": "Sim",
+                "rus": "\u0414\u0430"
             },
             "no": {
                 "eng": "No",
-                "pt-br": "N\u00e3o"
+                "pt-br": "N\u00e3o",
+                "rus": "\u041d\u0435\u0442"
             },
             "edit": {
                 "eng": "Edit",
-                "pt-br": "Editar"
+                "pt-br": "Editar",
+                "rus": "\u041f\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c"
             },
             "back": {
                 "eng": "Go back",
-                "pt-br": "Voltar"
+                "pt-br": "Voltar",
+                "rus": "\u0412\u0435\u0440\u043d\u0443\u0442\u044c\u0446\u044f"
             },
             "exit": {
                 "eng": "Exit",
-                "pt-br": "Sair"
+                "pt-br": "Sair",
+                "rus": "\u0412\u044b\u0445\u043e\u0434"
             },
             "delivery": {
                 "eng": "Here is your password:",
-                "pt-br": "Aqui est\u00e1 a sua senha"
+                "pt-br": "Aqui est\u00e1 a sua senha",
+                "rus": "\u0412\u043e\u0442 \u0432\u0430\u0448 \u043f\u0430\u0440\u043e\u043b\u044c"
             },
             "length": {
-                "eng": "This password has a length of: ",
-                "pt-br": "Essa senha tem um comprimento de valor: "
+                "eng": "This password has a length of:",
+                "pt-br": "Essa senha tem um comprimento de valor:",
+                "rus": "\u0414\u043b\u0438\u043d\u0430 \u044d\u0442\u043e\u0433\u043e \u043f\u0430\u0440\u043e\u043b\u044f \u0441\u043e\u0441\u0442\u0430\u0432\u043b\u044f\u0435\u0442:"
             },
             "continue": {
                 "eng": "Press enter to continue",
-                "pt-br": "Pressione enter para continuar"
+                "pt-br": "Pressione enter para continuar",
+                "rus": "\u041d\u0430\u0436\u043c\u0438\u0442\u0435 enter, \u0447\u0442\u043e\u0431\u044b \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0438\u0442\u044c"
             }
         },
         "password": {
             "print_confirmation": {
-                "eng": "Do you want to display the password? (y,n): ",
-                "pt-br": "Gostaria de revelar a senha? (s,n): "
+                "eng": "Would you like to display the password? (y,n):",
+                "pt-br": "Gostaria de revelar a senha? (s,n):",
+                "rus": "\u0425\u043e\u0442\u0438\u0442\u0435 \u043b\u0438 \u0432\u044b \u043e\u0442\u043e\u0431\u0440\u0430\u0437\u0438\u0442\u044c \u043f\u0430\u0440\u043e\u043b\u044c? (\u0434,\u043d):"
             },
             "context": {
                 "eng": "context",
-                "pt-br": "contexto"
+                "pt-br": "contexto",
+                "rus": "\u043a\u043e\u043d\u0442\u0435\u043a\u0441\u0442"
             },
             "key1": {
                 "eng": "first key",
-                "pt-br": "primeira chave"
+                "pt-br": "primeira chave",
+                "rus": "\u043f\u0435\u0440\u0432\u044b\u0439 \u043a\u043b\u044e\u0447"
             },
             "key2": {
                 "eng": "second key",
-                "pt-br": "segunda chave"
+                "pt-br": "segunda chave",
+                "rus": "\u0432\u0442\u043e\u0440\u043e\u0439 \u043a\u043b\u044e\u0447"
             },
             "key3": {
                 "eng": "third key",
-                "pt-br": "terceira chave"
+                "pt-br": "terceira chave",
+                "rus": "\u0442\u0440\u0435\u0442\u0438\u0439 \u043a\u043b\u044e\u0447"
             },
             "master_key": {
                 "eng": "master key",
-                "pt-br": "chave principal"
+                "pt-br": "chave principal",
+                "rus": "\u043c\u0430\u0441\u0442\u0435\u0440-\u043a\u043b\u044e\u0447"
             }
         },
         "hash": {
             "confirmation": {
                 "eng": "Would you like to generate a hash?",
-                "pt-br": "Gostaria de gerar um hash?"
+                "pt-br": "Gostaria de gerar um hash?",
+                "rus": "\u0425\u043e\u0442\u0438\u0442\u0435 \u0441\u0433\u0435\u043d\u0435\u0440\u0438\u0440\u043e\u0432\u0430\u0442 \u0445\u044d\u0448?"
             },
             "calculations": {
                 "eng": "Select the number (in bits) of possible calculations (1-32):",
-                "pt-br": "Selecione o n\u00famero (em bits) de c\u00e1lculos poss\u00edveis (1-32):"
+                "pt-br": "Selecione o n\u00famero (em bits) de c\u00e1lculos poss\u00edveis (1-32):",
+                "rus": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e (\u0432 \u0431\u0438\u0442\u0430\u0445) \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u044b\u0445 \u0432\u044b\u0447\u0438\u0441\u043b\u0435\u043d\u0438\u0439 (1-32):"
             },
             "message": {
                 "eng": "Write a message to be used in the hash (optional):",
-                "pt-br": "Escreva uma mensagem para ser usada no hash (opcional): "
+                "pt-br": "Escreva uma mensagem para ser usada no hash (opcional):",
+                "rus": "\u041d\u0430\u043f\u0438\u0448\u0438\u0442\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435, \u043a\u043e\u0442\u043e\u0440\u043e\u0435 \u0431\u0443\u0434\u0435\u0442 \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c\u0441\u044f \u0432 \u0445\u0435\u0448\u0435 (\u043d\u0435\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e):"
             },
             "clear": {
                 "eng": "Clear hash",
-                "pt-br": "Limpar hash"
+                "pt-br": "Limpar hash",
+                "rus": "\u041e\u0447\u0438\u0441\u0442\u0438\u0442\u044c \u0445\u044d\u0448"
             }
         },
         "configuration": {
             "menu": {
                 "main": {
                     "eng": "Select one option to configure, type '0' to go back",
-                    "pt-br": "Selecione uma das op\u00e7\u00f5es a seguir, digite 0 para voltar"
+                    "pt-br": "Selecione uma das op\u00e7\u00f5es a seguir, digite 0 para voltar",
+                    "rus": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043e\u0434\u0438\u043d \u0438\u0437 \u0432\u0430\u0440\u0438\u0430\u043d\u0442\u043e\u0432 \u0434\u043b\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438, \u0432\u0432\u0435\u0434\u0438\u0442\u0435 \u00ab0\u00bb, \u0447\u0442\u043e\u0431\u044b \u0432\u0435\u0440\u043d\u0443\u0442\u044c\u0441\u044f \u043d\u0430\u0437\u0430\u0434"
                 },
                 "current": {
                     "eng": "Current value for this setting:",
-                    "pt-br": "Valor atual para essa configura\u00e7\u00e3o:"
+                    "pt-br": "Valor atual para essa configura\u00e7\u00e3o:",
+                    "rus": "\u0422\u0435\u043a\u0443\u0449\u0435\u0435 \u0437\u043d\u0430\u0447\u0435\u043d\u0438\u0435 \u0434\u043b\u044f \u044d\u0442\u043e\u0439 \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438:"
                 }
             },
             "safe": {
                 "safe_setting": {
                     "eng": "Toggle safe mode",
-                    "pt-br": "Ativar/desativar modo seguro"
+                    "pt-br": "Ativar/desativar modo seguro",
+                    "rus": "\u0412\u043a\u043b\u044e\u0447\u0438\u0442\u044c \u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u044b\u0439 \u0440\u0435\u0436\u0438\u043c"
                 },
                 "set_safe": {
                     "eng": "Select which mode for safe mode you prefer:",
-                    "pt-br": "Selecione o modo preferido para modo seguro:"
+                    "pt-br": "Selecione o modo preferido para modo seguro:",
+                    "rus": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043f\u0440\u0435\u0434\u043f\u043e\u0447\u0442\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u0439 \u0440\u0435\u0436\u0438\u043c \u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0433\u043e \u0440\u0435\u0436\u0438\u043c\u0430:"
                 }
             },
             "key": {
                 "key_setting": {
                     "eng": "Number of keys to be used",
-                    "pt-br": "N\u00famero de chaves a ser usada"
+                    "pt-br": "N\u00famero de chaves a ser usada",
+                    "rus": "\u041a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0435\u043c\u044b\u0445 \u043a\u043b\u044e\u0447\u0435\u0439"
                 },
                 "set_key": {
                     "eng": "Select the number of keys (2,5):",
-                    "pt-br": "Selecione o n\u00famero de chaves usadas (2,5):"
+                    "pt-br": "Selecione o n\u00famero de chaves usadas (2,5):",
+                    "rus": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u043a\u043b\u044e\u0447\u0435\u0439 (2,5):"
                 }
             },
             "base": {
                 "base_setting": {
                     "eng": "Set prefered decoding base",
-                    "pt-br": "Selecionar base de decodifica\u00e7\u00e3o"
+                    "pt-br": "Selecionar base de decodifica\u00e7\u00e3o",
+                    "rus": "\u0423\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u044c \u043f\u0440\u0435\u0434\u043f\u043e\u0447\u0442\u0438\u0442\u0435\u043b\u044c\u043d\u0443\u044e \u0431\u0430\u0437\u0443 \u0434\u0435\u043a\u043e\u0434\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f"
                 },
                 "set_base": {
                     "eng": "Select the prefered base:",
-                    "pt-br": "Selecione a base preferida:"
+                    "pt-br": "Selecione a base preferida:",
+                    "rus": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043f\u0440\u0435\u0434\u043f\u043e\u0447\u0442\u0438\u0442\u0435\u043b\u044c\u043d\u0443\u044e \u0431\u0430\u0437\u0443:"
                 }
             },
             "limit": {
                 "password": {
                     "eng": "Password",
-                    "pt-br": "Senha"
+                    "pt-br": "Senha",
+                    "rus": "\u041f\u0430\u0440\u043e\u043b\u044c"
                 },
                 "limit_setting": {
                     "eng": "Password limit configuration",
-                    "pt-br": "Configurar comprimento de senha"
+                    "pt-br": "Configurar comprimento de senha",
+                    "rus": "\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u0438\u044f \u043f\u043e \u0434\u043b\u0438\u043d\u0435 \u043f\u0430\u0440\u043e\u043b\u044f"
                 },
                 "set_limit": {
                     "eng": "Select the maximum length of the password (1-256):",
-                    "pt-br": "Escolha o limite m\u00e1ximo de senha (1-256)ww:"
+                    "pt-br": "Escolha o limite m\u00e1ximo de senha (1-256):",
+                    "rus": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u0443\u044e \u0434\u043b\u0438\u043d\u0443 \u043f\u0430\u0440\u043e\u043b\u044f (1-256):"
                 }
             },
             "language": {
                 "english": {
                     "eng": "English",
-                    "pt-br": "Ingl\u00eas"
+                    "pt-br": "Ingl\u00eas",
+                    "rus": "\u0410\u043d\u0433\u043b\u0438\u0439\u0441\u043a\u0438\u0439"
                 },
                 "portuguese": {
                     "eng": "Portuguese",
-                    "pt-br": "Portugu\u00eas"
+                    "pt-br": "Portugu\u00eas",
+                    "rus": "\u041f\u043e\u0440\u0442\u0443\u0433\u0430\u043b\u044c\u0441\u043a\u0438\u0439"
+                },
+                "russian": {
+                    "eng": "Russian",
+                    "pt-br": "Russo",
+                    "rus": "\u0420\u0443\u0441\u0441\u043a\u0438\u0439"
                 },
                 "language_setting": {
                     "eng": "Language settings",
-                    "pt-br": "Configura\u00e7\u00f5es de idioma"
+                    "pt-br": "Configura\u00e7\u00f5es de idioma",
+                    "rus": "\u042f\u0437\u044b\u043a\u043e\u0432\u044b\u0435 \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438"
                 },
                 "set_language": {
                     "eng": "Select the prefered language:",
-                    "pt-br": "Selecione o idioma preferido:"
+                    "pt-br": "Selecione o idioma preferido:",
+                    "rus": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043f\u0440\u0435\u0434\u043f\u043e\u0447\u0442\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u0439 \u044f\u0437\u044b\u043a:"
                 }
             },
             "algorithm": {
                 "menu": {
                     "eng": "Select which algorithm you want to change",
-                    "pt-br": "Selecione o algoritmo que queira mudar"
+                    "pt-br": "Selecione o algoritmo que queira mudar",
+                    "rus": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0430\u043b\u0433\u043e\u0440\u0438\u0442\u043c, \u043a\u043e\u0442\u043e\u0440\u044b\u0439 \u0445\u043e\u0442\u0438\u0442\u0435 \u0438\u0437\u043c\u0435\u043d\u0438\u0442\u044c"
                 },
                 "algorithm_setting": {
                     "eng": "Configure how the algoritms interact",
-                    "pt-br": "Configure como os algor\u00edtmos interagem"
+                    "pt-br": "Configure como os algor\u00edtmos interagem",
+                    "rus": "\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u0442\u0435 \u0432\u0437\u0430\u0438\u043c\u043e\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435 \u0430\u043b\u0433\u043e\u0440\u0438\u0442\u043c\u043e\u0432"
                 },
                 "set_key": {
                     "eng": "Select which algorithm will be used to hash the keys",
-                    "pt-br": "Selecione qual algoritmo vai ser usado para o hash"
+                    "pt-br": "Selecione qual algoritmo vai ser usado para o hash",
+                    "rus": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0430\u043b\u0433\u043e\u0440\u0438\u0442\u043c, \u043a\u043e\u0442\u043e\u0440\u044b\u0439 \u0431\u0443\u0434\u0435\u0442 \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c\u0441\u044f \u0434\u043b\u044f \u0445\u0435\u0448\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f \u043a\u043b\u044e\u0447\u0435\u0439"
                 },
                 "set_hash": {
                     "eng": "Select which algorithm will be used as a main for the password",
-                    "pt-br": "Selecione o principal algoritimo de hashing para a senha"
+                    "pt-br": "Selecione o principal algoritimo de hashing para a senha",
+                    "rus": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435, \u043a\u0430\u043a\u043e\u0439 \u0430\u043b\u0433\u043e\u0440\u0438\u0442\u043c \u0431\u0443\u0434\u0435\u0442 \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c\u0441\u044f \u0432 \u043a\u0430\u0447\u0435\u0441\u0442\u0432\u0435 \u043e\u0441\u043d\u043e\u0432\u043d\u043e\u0433\u043e \u0434\u043b\u044f \u043f\u0430\u0440\u043e\u043b\u044f"
                 }
             },
             "algorithm_parameters": {
                 "keys_algo": {
                     "eng": "Key's algorithm",
-                    "pt-br": "Algoritmo das chaves"
+                    "pt-br": "Algoritmo das chaves",
+                    "rus": "\u0410\u043b\u0433\u043e\u0440\u0438\u0442\u043c \u041a\u0435\u0439\u0441\u0430"
                 },
                 "pass_algo": {
                     "eng": "Password's algorithm",
-                    "pt-br": "Algoritmo da senha"
+                    "pt-br": "Algoritmo da senha",
+                    "rus": "\u0410\u043b\u0433\u043e\u0440\u0438\u0442\u043c \u043f\u0430\u0440\u043e\u043b\u044f"
                 },
                 "set_algo_parameters": {
                     "eng": "Select which one of the hashers you want to be editing",
-                    "pt-br": "Selecione qual dos hashes gostaria de editar"
+                    "pt-br": "Selecione qual dos hashes gostaria de editar",
+                    "rus": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435, \u043a\u0430\u043a\u043e\u0439 \u0438\u0437 \u0445\u044d\u0448\u0435\u0440\u043e\u0432 \u0432\u044b \u0445\u043e\u0442\u0438\u0442\u0435 \u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c"
                 },
                 "key_hasher": {
                     "eng": "Key hasher",
-                    "pt-br": "Hasher de chaves"
+                    "pt-br": "Hasher de chaves",
+                    "rus": "\u041a\u043b\u044e\u0447\u0435\u0432\u043e\u0439 \u0445\u044d\u0448\u0435\u0440"
                 },
                 "pass_hasher": {
                     "eng": "Password Hasher",
-                    "pt-br": "Hasher de senha"
+                    "pt-br": "Hasher de senha",
+                    "rus": "\u0425\u044d\u0448\u0435\u0440 \u043f\u0430\u0440\u043e\u043b\u0435\u0439"
                 }
             }
         },
         "warning": {
             "program_finalized": {
                 "eng": "Finishing the program\u2026",
-                "pt-br": "Finalizando o programa\u2026"
+                "pt-br": "Finalizando o programa\u2026",
+                "rus": "\u0417\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u0438\u0435 \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u044b\u2026"
             },
             "key_limit": {
                 "eng": "WARNING: This script doesn't support key password",
-                "pt-br": "AVISO: Esse script n\u00e3o suporta apenas uma chave"
+                "pt-br": "AVISO: Esse script n\u00e3o suporta apenas uma chave",
+                "rus": "\u0412\u041d\u0418\u041c\u0410\u041d\u0418\u0415: \u044d\u0442\u043e\u0442 \u0441\u043a\u0440\u0438\u043f\u0442 \u043d\u0435 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442 \u043a\u043b\u044e\u0447\u0435\u0432\u043e\u0439 \u043f\u0430\u0440\u043e\u043b\u044c"
             },
             "bit_missflow": {
                 "eng": "WARNING: We only accept a range of 1 to 32 for performance reasons",
-                "pt-br": "AVISO: S\u00f3 aceitamos valores de 1 a 32 por motivos de performance"
+                "pt-br": "AVISO: S\u00f3 aceitamos valores de 1 a 32 por motivos de performance",
+                "rus": "\u0412\u041d\u0418\u041c\u0410\u041d\u0418\u0415: \u043f\u043e \u0441\u043e\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u044f\u043c \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u0438 \u043c\u044b \u043f\u0440\u0438\u043d\u0438\u043c\u0430\u0435\u043c \u0442\u043e\u043b\u044c\u043a\u043e \u0434\u0438\u0430\u043f\u0430\u0437\u043e\u043d \u043e\u0442 1 \u0434\u043e 32"
             },
             "knowledge_limit": {
                 "eng": "WARNING: Only do changes to things that you understard",
-                "pt-br": "AVISO: Fa\u00e7a altera\u00e7\u00f5es apenas naquilo que conhe\u00e7a"
+                "pt-br": "AVISO: Fa\u00e7a altera\u00e7\u00f5es apenas naquilo que conhe\u00e7a",
+                "rus": "\u0412\u041d\u0418\u041c\u0410\u041d\u0418\u0415: \u0412\u043d\u043e\u0441\u0438\u0442\u0435 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0442\u043e\u043b\u044c\u043a\u043e \u0432 \u0442\u0435 \u0432\u0435\u0449\u0438, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u0432\u044b \u043f\u043e\u043d\u0438\u043c\u0430\u0435\u0442\u0435."
             }
         },
         "error": {
             "value_error": {
                 "eng": "Invalid input used",
-                "pt-br": "Valor inv\u00e1lido utilizado"
+                "pt-br": "Valor inv\u00e1lido utilizado",
+                "rus": "\u0418\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u043e \u043d\u0435\u0434\u043e\u043f\u0443\u0441\u0442\u0438\u043c\u043e\u0435 \u0432\u0445\u043e\u0434\u043d\u043e\u0435 \u0437\u043d\u0430\u0447\u0435\u043d\u0438\u0435"
             },
             "limit_error": {
                 "eng": "This value is off limits",
-                "pt-br": "Valor fora de alcance"
+                "pt-br": "Valor fora de alcance",
+                "rus": "\u042d\u0442\u043e \u0437\u043d\u0430\u0447\u0435\u043d\u0438\u0435 \u043d\u0435\u0434\u043e\u043f\u0443\u0441\u0442\u0438\u043c\u043e"
             },
             "selection_error": {
-                "eng": "No available selection was choosen for: ",
-                "pt-br": "Uma sele\u00e7\u00e3o inv\u00e1lida foi criada para: "
+                "eng": "No available selection was choosen for:",
+                "pt-br": "Uma sele\u00e7\u00e3o inv\u00e1lida foi criada para:",
+                "rus": "\u041d\u0435 \u0431\u044b\u043b\u043e \u0432\u044b\u0431\u0440\u0430\u043d\u043e \u043d\u0438 \u043e\u0434\u043d\u043e\u0433\u043e \u0432\u0430\u0440\u0438\u0430\u043d\u0442\u0430 \u0434\u043b\u044f"
             },
             "key_error": {
-                "eng": "The method get couldn't find this message in the file: ",
-                "pt-br": "O m\u00e9todo get n\u00e3o conseguiu encontrar essa mensagem no arquivo: "
+                "eng": "The method get couldn't find this message in the file:",
+                "pt-br": "O m\u00e9todo get n\u00e3o conseguiu encontrar essa mensagem no arquivo:",
+                "rus": "\u041c\u0435\u0442\u043e\u0434 get \u043d\u0435 \u0441\u043c\u043e\u0433 \u043d\u0430\u0439\u0442\u0438 \u044d\u0442\u043e \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435 \u0432 \u0444\u0430\u0439\u043b\u0435:"
             },
             "type_error": {
                 "eng": "Provided input is invalid for use",
-                "pt-br": "O input recebido \u00e9 inv\u00e1lido para uso"
+                "pt-br": "O input recebido \u00e9 inv\u00e1lido para uso",
+                "rus": "\u0412\u0432\u0435\u0434\u0435\u043d\u043d\u044b\u0435 \u0434\u0430\u043d\u043d\u044b\u0435 \u043d\u0435\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043b\u044c\u043d\u044b \u0434\u043b\u044f \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u0438\u044f"
             }
         }
     }

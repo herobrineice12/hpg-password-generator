@@ -1,5 +1,4 @@
 # Import Area
-
 try:
     import sys, os, time
     from typing import Callable, Any, Literal
@@ -261,7 +260,8 @@ class Configuration:
             {
                 None: lambda: _System.saveandexit(),
                 Configuration.get('dialog','configuration','language','english'): lambda: Configuration.set('pref_lang',value='eng'),
-                Configuration.get('dialog','configuration','language','portuguese'): lambda: Configuration.set('pref_lang',value='pt-br')
+                Configuration.get('dialog','configuration','language','portuguese'): lambda: Configuration.set('pref_lang',value='pt-br'),
+                Configuration.get('dialog','configuration','language','russian'): lambda: Configuration.set('pref_lang',value='rus')
             }
         )
 
