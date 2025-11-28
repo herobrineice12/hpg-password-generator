@@ -1,7 +1,0 @@
-.idea/
-.vscode/
-build/
-dist/
-__pycache__/
-lib/buildlib.sh
-Main.spec
