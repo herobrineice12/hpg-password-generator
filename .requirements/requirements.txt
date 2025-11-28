@@ -1,0 +1,5 @@
+cffi
+argon2-cffi
+bcrypt
+pyperclip
+pyinstaller

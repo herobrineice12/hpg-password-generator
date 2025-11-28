@@ -1,4 +1,5 @@
 # Import Area
+import os.path
 
 try:
     import time, sys
@@ -61,7 +62,7 @@ class Main:
         master_key: str = read(f"{print_parameter('master_key')} --> ") if Main.master_buffer is None\
             else Main.master_buffer
 
-        password = Password(
+        password: str = Password(
             ctx=context,
             k1=key1,
             k2=key2,
@@ -92,7 +93,10 @@ class Main:
         else:
             print_password()
 
-        Configuration.copy(password)
+        on_docker_envirorement: bool = os.path.exists("/.dockerenv")
+
+        if not on_docker_envirorement:
+            Configuration.copy(password)
 
         if master_was_none:
             Main.master_buffer = None

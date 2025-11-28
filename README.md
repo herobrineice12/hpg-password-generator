@@ -11,6 +11,7 @@ It also can be installed as a console application script, so you can integrate i
 ## Features
 
 - Completely offline.
+- Totally portable with docker implementation.
 - No password storing for better security.
 - Reproducible password generation with 5 keys (1 context, 3 keys, 1 Master password).
 - Option for choosing how many keys you want to use for the password.
@@ -38,7 +39,11 @@ And finally, it will ask you for the **master key**. This is the most important 
 
 ### Hash generator
 
-The **hash generator** is a generator that uses prime number calculations for creating a random key. When you use it, it will firstly ask you for a number (of bits) of possible calculations to be done by the algorithm, then it will ask you for an optional message to be used in the hash derivation. The result will not be shown after calculating, but it will be displayed after generating a password.
+The **hash generator** is a generator that uses a custom library, or, a foreign fuction made in the Golang language for creating a random key. When you use it, it will firstly ask you for a number (of bits) of possible calculations to be done by the algorithm, then it will ask you for an optional message to be used in the hash derivation. The result will not be shown after calculating, but it will be displayed after generating a password.
+
+The **prime generation** is firstly started with in a random start point in the range of the provided bits, if even, it will be added 1 to the start point so we can only work with odd numbers and save 1 instruction for not using `number % 2 == 0`. The second step involves an initial filtration, an array of number with be instanciated with only the numbers who are not divisible to 3, 5 and 7; I personally call them primitive numbers. The third step is the prime calculation using the custom library present in the `lib/` directory, every number on the array is tested and the confirmed primes are added together to form a string, that is encoded by the provided message.
+
+The **Golang** language was choosen to be the main language for hash derivation because it offers good performance, that also translate to its multithreading. Considering both advantages, I decided that this language was the right choice for the task provided.
 
 ## History
 
@@ -53,11 +58,9 @@ This version also adds the possibility for the user to edit the used KDFs (Key D
 The planning process of re-factorization was inspired by UML diagrams that I made. I did a class and a use case diagram for a general view of the project’s architecture, as shown bellow:
 
 ![Classes diagram](diagrams/jpg/Model2!ClassDiagram_1.jpg)
-
 Classes diagram
 
 ![Use case diagram](diagrams/jpg/Model1!UseCases_0.jpg)
-
 Use case diagram
 
 ## Dependencies
@@ -70,6 +73,8 @@ In order to use this password generator, you’re going to need some dependencie
 - bcrypt python module
 - pyperclip python module
 - xclip program (Only if you are on Linux)
+- pbcopy program (Only if you are on Mac)
+- clip program (Only if you are on Windows)
 - termux-api package (Only if you are on Android)
 - pyinstaller module/program (If you want to compile it to an executable application)
 
@@ -85,6 +90,12 @@ To install python modules you will need to use pip, which is a python package ma
 pip install cffi argon2-cffi pyperclip pyinstaller
 ```
 
+If you have the `requirements.txt` file present on the `.requirements/` directory, you will be able to install dependencies with this next command:
+
+```bash
+pip install -r requirements.txt
+```
+
 However, in systems like Arch Linux this command can be pretty dangerous because the system may use older versions of python modules, that means that by doing this you could break your operational system. So if you’re using an Arch Linux based distro, please use pacman to install python modules.
 
 ```bash
@@ -93,7 +104,11 @@ sudo pacman -S python-cffi python-argon2-cffi python-pyperclip pyinstaller
 
 ## Usage
 
+### Using python
+
 You can start the script by running the `Main.py` file and, it will show you a menu of options for selection, it will be starting first in english, I tried to make it as self-explanatory as possible for use, so I’m open to feedback if you found something I could change.
+
+### Compiling into an executable
 
 As said in the definition, it also can be compiled into an executable application for better integration with your system, may it be for automation, fast access on the programs menu or for launching with a keyboard shortcut, you choose!
 
@@ -108,3 +123,31 @@ pyinstaller passgen.spec
 ```
 
 Done! your app will be available in the `dist/` folder for usage.
+
+### Using a docker isolated envirorement
+
+Docker is a program that helps to create packages that can be used on any device that has the docker-daemon present. One of the advantages is that it can run on an isolated envirorement, that guarantees security for the end user, and it fixes problems like dependency version mismatching.
+
+You can learn more about it [here](https://docs.docker.com/get-started/docker-overview/), and download it [here](https://www.docker.com/products/docker-desktop/). You will also need the buildx plugin, you can take a look at it [here](https://github.com/docker/buildx)
+
+After installing, open your terminal and use the command `cd` to move to the project folder, you will use the next command with admnistrator/root privileges to build your own docker image:
+
+```bash
+docker buildx build -t password-generator .
+```
+
+If you don't see any results after running the command, don't worry, because Docker doesn't work that way. You can check the created image with the command:
+
+```bash
+docker images
+```
+
+The first thing to be aware before using this application, is that the automatic password copy to clipboard is deactivated, that happens because, as said before, docker runs applications on an isolated envirorement that make almost impossible to implement a bridge between the docker daemon and your system clipboard with my current abilities.
+
+To run the program, you will use this command:
+
+```bash
+docker run -it --rm password-generator
+```
+
+The `-it` flag sinalizes that this is an interactive application and allow you to use your keyboard during use, and the `--rm` flag automatically closes the docker application after quiting the program, avoiding resource leaking.
