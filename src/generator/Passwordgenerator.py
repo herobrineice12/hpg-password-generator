@@ -2,6 +2,8 @@
 try:
     import sys, hashlib, bcrypt
     import argon2.low_level as argon
+    from cryptography.hazmat.primitives import hashes
+    from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
     from argon2.low_level import Type
     from config.Configuration import Configuration
 except ImportError as e:
@@ -57,18 +59,21 @@ class Password:
         def getkeyhasher():
             hasher = Configuration.get('config','algorithm','key_hasher')
 
-            def _blake_mixer(key: str=''):
-                h = key.encode()
-                iteration = Configuration.get('config','algorithm','parameters','key_hasher','blake','iteration')
-
-                for _ in range(iteration):
-                    h = hashlib.blake2b(h,digest_size=64).digest()
-
-                return h
-
-            def _hmac_mixer(key: str=''):
+            def _blake_mixer(key: str='') -> bytes:
                 passw = key.encode()
-                salt = str(key.__hash__()).encode()
+                salt = hashlib.sha256(key.encode()).digest()
+
+                return PBKDF2HMAC(
+                    algorithm=hashes.BLAKE2b(64),
+                    length=64,
+                    salt=salt,
+                    iterations=Configuration.get('config','algorithm','parameters','key_hasher','blake','iteration')
+                ).derive(passw)
+
+
+            def _hmac_mixer(key: str='') -> bytes:
+                passw = key.encode()
+                salt = hashlib.sha256(key.encode()).digest()
 
                 return hashlib.pbkdf2_hmac(
                     hash_name='sha512',
@@ -78,9 +83,9 @@ class Password:
                     dklen=Configuration.get('config','algorithm','parameters','key_hasher','hmac','dklen')
                 )
 
-            def _argon_mixer(key: str=''):
+            def _argon_mixer(key: str='') -> bytes:
                 passw = key.encode()
-                salt = str(passw.__hash__()).encode()
+                salt = hashlib.sha256(key.encode()).digest()
 
                 return argon.hash_secret_raw(
                     secret=passw,
