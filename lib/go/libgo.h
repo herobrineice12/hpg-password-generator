@@ -22,7 +22,12 @@ extern const char *_GoStringPtr(_GoString_ s);
 
 
 #line 3 "lib.primegenerator.go"
+
+
 #include <stdio.h>
+#include <stdlib.h>
+
+void array_processing(void *arr, int len, int buffer, void *out, int *out_len, int *overflow, int *next_index);
 
 #line 1 "cgo-generated-wrapper"
 

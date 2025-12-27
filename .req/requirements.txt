@@ -1,6 +1,6 @@
-cffi
-cryptography
 argon2-cffi
 bcrypt
-pyperclip
+cffi
+cryptography
 pyinstaller
+pyperclip

@@ -1,4 +1,6 @@
-# Import Area
+############## ############## ##############
+#               IMPORT AREA                #
+############## ############## ##############
 import os.path
 
 try:
@@ -11,6 +13,10 @@ try:
 except ImportError as e:
     print(f"ImportError -> {e}")
     sys.exit(1)
+
+############## ############## ##############
+#             CLASS DEFINITION             #
+############## ############## ##############
 
 class Main:
     master_buffer: str | None = None
@@ -83,11 +89,14 @@ class Main:
                     f" --> "
                 )
 
-                confirmation = True if confirmation in ['y','s'] else (False if confirmation == 'n' else None)
+                confirmation = True if confirmation in ['y','s','д'] else (False if confirmation in ['n','н'] else None)
 
-                if confirmation: print_password()
-                elif not confirmation: break
-                else: continue
+                if confirmation:
+                    print_password()
+                elif not confirmation:
+                    break
+                else:
+                    continue
 
                 break
         else:
@@ -112,7 +121,10 @@ class Main:
 
     @staticmethod
     def generatehash() -> None:
-        ### Auxiliary methods ###
+        ############## ############## ##############
+        #            AUXILIARY METHODS             #
+        ############## ############## ##############
+        
         def _hashgeneration() -> None:
             calculations = lambda message: int(input(message))
 
@@ -122,7 +134,7 @@ class Main:
                 f"{Configuration.get('dialog', 'hash', 'calculations')}\n --> "
             )
 
-            bit_missflow = calc > 32 or calc < 1
+            bit_missflow = 3 > calc or calc > 32
 
             if bit_missflow:
                 print(Configuration.get('dialog','warning','bit_missflow'))
@@ -138,7 +150,9 @@ class Main:
         def _clearhash() -> None:
             Main.master_buffer = None
 
-        ### Method Functionality ###
+        ############## ############## ##############
+        #           METHOD FUNCTIONALITY           #
+        ############## ############## ##############
 
         Configuration.clear()
 
@@ -193,6 +207,10 @@ class Main:
                     lambda: sys.exit(0)
             }
         )
+
+############## ############## ##############
+#                CLASS END                 #
+############## ############## ##############
 
 if __name__ == '__main__':
     Configuration.handle(Main.start,"Main:start")

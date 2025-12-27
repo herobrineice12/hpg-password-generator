@@ -1,4 +1,7 @@
-# Import Area
+############## ############## ##############
+#               IMPORT AREA                #
+############## ############## ##############
+
 try:
     import sys, hashlib, bcrypt
     import argon2.low_level as argon
@@ -9,6 +12,10 @@ try:
 except ImportError as e:
     print(f"ImportError -> {e}")
     sys.exit(1)
+
+############## ############## ##############
+#             CLASS DEFINITION             #
+############## ############## ##############
 
 class Password:
     _context: str
@@ -52,7 +59,9 @@ class Password:
         _bytes = hashlib.sha3_256(signature.encode()).digest()
         return int.from_bytes(_bytes[:12],'big') % 12 ** 5
 
-    # Subclasses
+    ############## ############## ##############
+    #             CLASS DEFINITION             #
+    ############## ############## ##############
 
     class Encoder:
         @staticmethod

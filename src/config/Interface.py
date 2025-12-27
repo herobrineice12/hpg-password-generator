@@ -1,4 +1,12 @@
-from typing import Callable, Any
+############## ############## ##############
+#               IMPORT AREA                #
+############## ############## ##############
+
+from typing import Any
+
+############## ############## ##############
+#             CLASS DEFINITION             #
+############## ############## ##############
 
 class Interface:
     @staticmethod

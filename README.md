@@ -69,6 +69,7 @@ In order to use this password generator, you’re going to need some dependencie
 
 - python3 interpreter
 - cffi python module
+- cryptography python module
 - argon2-cffi python module
 - bcrypt python module
 - pyperclip python module
@@ -90,7 +91,7 @@ To install python modules you will need to use pip, which is a python package ma
 pip install cffi argon2-cffi pyperclip pyinstaller
 ```
 
-If you have the `requirements.txt` file present on the `.requirements/` directory, you will be able to install dependencies with this next command:
+If you have the `requirements.txt` file present on the `.req/` directory, you will be able to install dependencies with this next command:
 
 ```bash
 pip install -r requirements.txt
