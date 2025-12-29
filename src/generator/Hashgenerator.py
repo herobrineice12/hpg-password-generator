@@ -6,9 +6,9 @@ try:
     import sys, hashlib
     from ctypes import *
     from typing import Callable
-    from config.Configuration import Configuration
+    from src.config.Configuration import Configuration
 except ImportError as e:
-    print(f"ImportError -> {e}")
+    print(f"[HashGenerator] ImportError -> {e}")
     sys.exit(1)
 
 ############## ############## ##############
@@ -79,38 +79,9 @@ class Hashgenerator:
 
         has_minimun_workload: bool = len(candidates) >= 65_536
 
-        def loadlib(*path,file) -> ctypes.CDLL:
-            is_packaged: bool = getattr(sys, 'frozen', False)
-
-            if is_packaged:
-                dir_path: str = sys._MEIPASS
-            else:
-                dir_path: str = os.path.abspath(
-                    os.path.join(os.path.dirname(__file__), "..", "..")
-                )
-
-            lib_path: str = os.path.join(dir_path, 'lib')
-
-            system: str = sys.platform
-            load_lib: Callable[[str], ctypes.CDLL] = lambda *lb: ctypes.CDLL(os.path.join(lib_path, *lb))
-
-            lib: ctypes.CDLL | None = None
-
-            match system:
-                case "windows":
-                    lib = load_lib(*path,f"{file}.dll")
-                case "linux":
-                    lib = load_lib(*path,f"{file}.so")
-                case "darwin":
-                    lib = load_lib(*path,f"{file}.dylib")
-                case _:
-                    raise Exception(Configuration.get('dialog', 'error', 'library_error'))           
-
-            return lib
-
         if has_minimun_workload:
         # Golang + Fortran implementation
-            lib = loadlib('go',file='libgo')
+            lib = Configuration.load_library('go',file='libgo')
 
             lib.generatePrimes.argtypes = [POINTER(c_int),c_int]
             lib.generatePrimes.restype = c_char_p
@@ -123,7 +94,7 @@ class Hashgenerator:
             return lib.generatePrimes(c_array,c_length)
         else:
         # C implementation
-            lib = loadlib('c',file='libc')
+            lib = Configuration.load_library('c',file='libc')
 
             lib.generateprimes.argtypes = [POINTER(c_int),c_int]
             lib.generateprimes.restype = c_char_p

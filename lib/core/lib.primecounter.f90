@@ -65,36 +65,6 @@ contains
             end if
         end do
     end function
-
-    subroutine add_to_list(list, element) ! by francescalus
-        implicit none
-
-        INTEGER(C_INT) :: i
-        INTEGER(C_INT) :: isize
-        INTEGER(C_INT), intent(in) :: element
-        INTEGER(C_INT), dimension(:), allocatable, intent(inout) :: list
-        INTEGER(C_INT), dimension(:), allocatable :: clist
-
-        if (allocated(list)) then
-            isize = size(list)
-            allocate(clist(isize+1))
-
-            do i=1, isize
-                clist(i) = list(i)
-            end do
-
-            clist(isize+1) = element
-
-            deallocate(list)
-            call move_alloc(clist,list)
-
-        else
-            allocate(list(1))
-            list(1) = element
-        end if
-
-        return
-    end subroutine
 end module
 
 program primecounter

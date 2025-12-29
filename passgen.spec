@@ -5,7 +5,12 @@ a = Analysis(
     ['src/Main.py'],
     pathex=[],
     binaries=[],
-    datas=[('src/data/*.json'),('lib/c/libc.*','lib/c'),('lib/fortran/libfor.*','lib/fortran'),('lib/go/libgo.*','lib/go')],
+    datas=[
+        ('src/data/*.json'),
+        ('lib/c/libc.*','lib/c'),
+        ('lib/fortran/libfor.*','lib/fortran'),
+        ('lib/go/libgo.*','lib/go')
+    ],
     hiddenimports=['argon2-cffi','bcrypt','pyperclip','_cffi_backend','cryptography'],
     hookspath=[],
     hooksconfig={},

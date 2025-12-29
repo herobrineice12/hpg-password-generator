@@ -111,9 +111,9 @@
         "rus": "\u0425\u043e\u0442\u0438\u0442\u0435 \u0441\u0433\u0435\u043d\u0435\u0440\u0438\u0440\u043e\u0432\u0430\u0442 \u0445\u044d\u0448?"
       },
       "calculations": {
-        "eng": "Select the number (in bits) of possible calculations (1-32):",
-        "pt-br": "Selecione o n\u00famero (em bits) de c\u00e1lculos poss\u00edveis (1-32):",
-        "rus": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e (\u0432 \u0431\u0438\u0442\u0430\u0445) \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u044b\u0445 \u0432\u044b\u0447\u0438\u0441\u043b\u0435\u043d\u0438\u0439 (1-32):"
+        "eng": "Select the number (in bits) of possible calculations (4-32):",
+        "pt-br": "Selecione o n\u00famero (em bits) de c\u00e1lculos poss\u00edveis (4-32):",
+        "rus": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e (\u0432 \u0431\u0438\u0442\u0430\u0445) \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u044b\u0445 \u0432\u044b\u0447\u0438\u0441\u043b\u0435\u043d\u0438\u0439 (4-32):"
       },
       "message": {
         "eng": "Write a message to be used in the hash (optional):",
@@ -331,6 +331,11 @@
         "eng": "External dependency was not found",
         "pt-br": "Dependência externa não foi encontrada",
         "rus": "Внешняя зависимость не найдена"
+      },
+      "system_error": {
+        "eng": "Current system is currently unsuported",
+        "pt-br": "O sistema atual ainda não é suportado",
+        "rus": "Текущая система пока не поддерживается"
       }
     }
   }

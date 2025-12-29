@@ -8,9 +8,9 @@ try:
     from cryptography.hazmat.primitives import hashes
     from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
     from argon2.low_level import Type
-    from config.Configuration import Configuration
+    from src.config.Configuration import Configuration
 except ImportError as e:
-    print(f"ImportError -> {e}")
+    print(f"[PasswordGenerator] ImportError -> {e}")
     sys.exit(1)
 
 ############## ############## ##############
@@ -25,6 +25,15 @@ class Password:
     _master: str
 
     def __init__(self, ctx: str, k1: str, k2: str, k3: str, mtr: str):
+        """
+        Defines the password's characteristics for processing
+        :param ctx: Context for Password Usage
+        :param k1: First Intermediary Key
+        :param k2: Second Intermediary Key
+        :param k3: Third Intermediary Key
+        :param mtr: Master Key for Final Derivation
+        """
+
         self._context = ctx
         self._key1 = k1
         self._key2 = k2
@@ -32,6 +41,11 @@ class Password:
         self._master = mtr
 
     def process(self) -> str:
+        """
+        Processes the password based on the internal characteristics of the class
+        :return: A password string
+        """
+
         _key_hasher = self.Encoder.getkeyhasher()
 
         keys = [self._key1, self._key2, self._key3]
@@ -55,7 +69,13 @@ class Password:
         return decoder(password)[:limit]
 
     @staticmethod
-    def _getintfromsignature(signature: str):
+    def _getintfromsignature(signature: str) -> int:
+        """
+        A personal way of signaturing generated passwords
+        :param signature: A string to be used to create the signature
+        :return: The encoded version of the signature
+        """
+
         _bytes = hashlib.sha3_256(signature.encode()).digest()
         return int.from_bytes(_bytes[:12],'big') % 12 ** 5
 
@@ -64,6 +84,10 @@ class Password:
     ############## ############## ##############
 
     class Encoder:
+        """
+        Holds password encoding logic and parameters inside of Password class
+        """
+        
         @staticmethod
         def getkeyhasher():
             hasher = Configuration.get('config','algorithm','key_hasher')

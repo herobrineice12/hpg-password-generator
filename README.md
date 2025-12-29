@@ -17,7 +17,7 @@ It also can be installed as a console application script, so you can integrate i
 - Option for choosing how many keys you want to use for the password.
 - Random hash generation with a message key and prime number generator.
 - Persistent configurations.
-- Language options (English, Portuguese).
+- Language options (English, Portuguese, Russian).
 - Different decoding base options (Base 85, 64, 64-URL, 16).
 - Option to hide your inputs with safe mode.
 - Capability of limiting the length of your password.
@@ -27,7 +27,7 @@ It also can be installed as a console application script, so you can integrate i
 
 ## How it works
 
-This script achieves its functionality by using a combination of well-known algorithms in the security industry, such as Argon2 and Blake2b, for key and password derivation. Let me tell you how this script does it.
+This script achieves its functionality by using a combination of well-known algorithms in the security industry, such as Argon2 and Blake, for key and password derivation. Let me tell you how this script does it.
 
 ### Password generator
 
@@ -39,11 +39,23 @@ And finally, it will ask you for the **master key**. This is the most important 
 
 ### Hash generator
 
-The **hash generator** is a generator that uses a custom library, or, a foreign fuction made in the Golang language for creating a random key. When you use it, it will firstly ask you for a number (of bits) of possible calculations to be done by the algorithm, then it will ask you for an optional message to be used in the hash derivation. The result will not be shown after calculating, but it will be displayed after generating a password.
+The **hash generator** is a generator that uses a custom library or a foreign function made in the Golang language for creating a random key. When you use it, it will firstly ask you for a number (of bits) of possible calculations to be done by the algorithm, then it will ask you for an optional message to be used in the hash derivation. The result will not be shown after calculating, but it will be displayed after generating a password.
 
-The **prime generation** is firstly started with in a random start point in the range of the provided bits, if even, it will be added 1 to the start point so we can only work with odd numbers and save 1 instruction for not using `number % 2 == 0`. The second step involves an initial filtration, an array of number with be instanciated with only the numbers who are not divisible to 3, 5 and 7; I personally call them primitive numbers. The third step is the prime calculation using the custom library present in the `lib/` directory, every number on the array is tested and the confirmed primes are added together to form a string, that is encoded by the provided message.
+The **prime generation** is firstly started with a random start point in the range of the provided bits, if any. It will add 1 to the start point so we can only work with odd numbers and save 1 modulus instruction for not using `number % 2 == 0`. The second step involves an initial filtration; an array of numbers will be instantiated with only the numbers that are not divisible by 3, 5, and 7; I personally call them primitive numbers. The third step is deciding if the available candidates are sufficient to compensate for the cost of calling a foreign function interface. If the workload is bigger than 16 bits, a complex pipeline of operations by a successful coordination between Golang and Fortran is called for, with buffer prediction and workload division between available load above, but not disregarding the number of logical cores in your CPU. If the current workload is lower than 16 bits, a C-made FFI will be called instead with simple calculation and dynamic memory allocation.
 
-The **Golang** language was choosen to be the main language for hash derivation because it offers good performance, that also translate to its multithreading. Considering both advantages, I decided that this language was the right choice for the task provided.
+The **Golang** language was chosen to be the workload orchestrator because of its speed and simplicity. It receives the array alongside its length and calculates the amount of threads that fit the most based on the actual quantity of items in the array and the number of cores on your CPU. After calculating the amount of threads necessary, it divides the array into different sections, calculates the buffer based on Ross's formula, and sends them to Fortran via C call.
+
+The **Fortran** language was picked for its reputation in high-performance computing and for its simplicity to the compiler; it allows aggressive optimizations like loop unrolling, which happens a lot in these algorithms, to be done. Its functionality is made possible because of the 7 arguments needed to start the array processing; amongst them is:
+
+* The address of the original array start point
+* The length of Go's subdivision
+* The size of the predicted buffer
+* The pointer to the output array
+* The size of the output array
+* A flag that determines if the buffer was overflown during processing
+* The index at which the array should start in case of a buffer resize
+
+The **C** language was chosen for lower workloads because of its FFI simplicity and forwardness; a really simple implementation avoids thread calculation, workload division, and Fortran calls. It also uses dynamic allocation while calculating the primes, which isn't ideal, but it works for now.
 
 ## History
 
@@ -125,7 +137,7 @@ pyinstaller passgen.spec
 
 Done! your app will be available in the `dist/` folder for usage.
 
-### Using a docker isolated envirorement
+### Using a docker isolated environment
 
 Docker is a program that helps to create packages that can be used on any device that has the docker-daemon present. One of the advantages is that it can run on an isolated envirorement, that guarantees security for the end user, and it fixes problems like dependency version mismatching.
 
@@ -151,4 +163,4 @@ To run the program, you will use this command:
 docker run -it --rm password-generator
 ```
 
-The `-it` flag sinalizes that this is an interactive application and allow you to use your keyboard during use, and the `--rm` flag automatically closes the docker application after quiting the program, avoiding resource leaking.
+The `-it` flag signals that this is an interactive application and allow you to use your keyboard during use, and the `--rm` flag automatically closes the docker application after quiting the program, avoiding resource leaking.

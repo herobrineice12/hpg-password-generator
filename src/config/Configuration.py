@@ -3,11 +3,10 @@
 ############## ############## ##############
 
 try:
-    import sys, os, time, shutil
+    import sys, os, platform, time
     from typing import Callable, Any, Literal
-    from config.Interface import Interface
-except Exception as e:
-    print(f"Exception -> {e}")
+except ImportError as e:
+    print(f"[Configuration] ImportError -> {e}")
     sys.exit(1)
 
 ############## ############## ##############
@@ -15,7 +14,11 @@ except Exception as e:
 ############## ############## ##############
 
 class _System:
-    import subprocess, json, pyperclip
+    import json, shutil, subprocess, pyperclip, ctypes
+
+    SYS: str = sys.platform
+    OS: str = os.name
+    PLAT: str = platform.system()
 
     CFG: dict = {}
     DLG: dict = {}
@@ -25,8 +28,8 @@ class _System:
 
     @staticmethod
     def initialize():
-        _System.CFG = _System.load("src/data/preferences.json")
-        _System.DLG = _System.load("src/data/dialog.json")
+        _System.CFG = _System.loaddata("src/data/preferences.json")
+        _System.DLG = _System.loaddata("src/data/dialog.json")
 
     @staticmethod
     def save() -> None:
@@ -39,7 +42,67 @@ class _System:
         raise StopIteration
 
     @staticmethod
-    def load(path: str) -> dict:
+    def loadlibrary(*path: str, file: str) -> ctypes.CDLL:
+        from ctypes import CDLL
+
+        try:
+            windows_keys: dict[str,list] = {
+                "sys": ["win32", "cygwin", "msys"],
+                "os": ["nt"],
+                "plat": ["Windows"]
+            }
+
+            linux_keys: dict[str,list] = {
+                "sys": ["linux", "linux2"],
+                "os": ["posix"],
+                "plat": ["Linux"]
+            }
+
+            bsd_keys: dict[str,list] = {
+                "sys": ["freebsd", "freebsd7", "freebsd8", "freebsdN", "openbsd6"],
+                "os": ["posix"],
+                "plat": ["FreeBSD", "OpenBSD"]
+            }
+
+            mac_keys: dict[str,list] = {
+                "sys": ["darwin"],
+                "os": ["posix"],
+                "plat": ["Darwin"]
+            }
+
+            def _checksystem(keys) -> bool:
+                return _System.SYS in keys['sys'] and _System.OS in keys['os'] and _System.PLAT in keys['plat']
+
+            is_packaged: bool = getattr(sys,'frozen',False)
+
+            if is_packaged:
+                base_path: str = sys._MEIPASS
+            else:
+                base_path: str = os.path.join(os.path.abspath(__file__),"..","..")
+
+            load_lib: Callable = lambda *p, f: CDLL(os.path.join(base_path,*p,f))
+
+            if _checksystem(windows_keys):
+                lib: CDLL = load_lib(path,f=f"{file}.dll")
+            elif _checksystem(linux_keys) or _checksystem(bsd_keys):
+                lib: CDLL = load_lib(path,f=f"{file}.so")
+            elif _checksystem(mac_keys):
+                lib: CDLL = load_lib(path,f=f"{file}.dylib")
+            else:
+                raise SystemError
+
+            return lib
+
+        except FileNotFoundError:
+            print(f"[_System:loadlib] FileNotFoundError -> {e} not found")
+            sys.exit(1)
+
+        except SystemError:
+            print(f"[_System:loadlib] SystemError -> {Configuration.get('dialog','error','system_error')}")
+            sys.exit(1)
+
+    @staticmethod
+    def loaddata(path: str) -> dict:
         try:
             is_packaged: bool = getattr(sys,'frozen',False)
             is_preference: bool = "preferences" in path
@@ -48,7 +111,7 @@ class _System:
                 with open(file_location,'r') as file: return _System.json.load(file)
 
             if is_packaged:
-                base_path = sys._MEIPASS
+                base_path: str = sys._MEIPASS
 
                 if is_preference:
                     pref = "preferences.json"
@@ -58,7 +121,7 @@ class _System:
                     portable_doesnt_exist: bool = not os.path.exists(local_pref)
 
                     if portable_doesnt_exist:
-                        shutil.copy(os.path.join(base_path,path),file_path)
+                        _System.shutil.copy(os.path.join(base_path,path),file_path)
                         _System.CONF_PATH = local_pref
 
                     return load_file(local_pref)
@@ -72,11 +135,11 @@ class _System:
             return load_file(path)
 
         except FileNotFoundError as e:
-            print(f"{e} not found")
+            print(f"[_System:loaddata] FileNotFoundError -> {e} not found")
             sys.exit(1)
 
         except _System.json.JSONDecodeError:
-            print("Decoding error on json")
+            print("[_System:loaddata] JSONDecodeError -> Decoding error on json")
             sys.exit(1)
 
     @staticmethod
@@ -162,6 +225,8 @@ class Configuration:
     #             WRAPPER VARIABLES            #
     ############## ############## ##############
 
+    load_library: _System.ctypes.CDLL = lambda *p,f: _System.loadlibrary(p,file=f)
+
     save_and_exit: None = lambda: _System.saveandexit()
 
     clear: None = lambda: _System.clear()
@@ -169,7 +234,7 @@ class Configuration:
 
     throw: None = lambda ex: _System.throw(ex)
 
-    getlang: Callable[[],str] = lambda: _System.CFG['config']['pref_lang']
+    getlang: str = lambda: _System.CFG['config']['pref_lang']
 
     ############## ############## ##############
     #              CLASS METHODS               #
@@ -189,12 +254,9 @@ class Configuration:
             import base64
 
             is_dialog: bool = 'dialog' in args
-            is_runtime: bool = 'runtime' in args
 
             if is_dialog:
                 information: Any = _System.DLG
-            elif is_runtime:
-                information: Any = _System.RNT
             else:
                 information: Any = _System.CFG
 
@@ -245,218 +307,33 @@ class Configuration:
             setting[path[-1]] = value
 
     @staticmethod
-    def setsafe() -> None:
-        while True:
-            Configuration.clear()
-            print(Configuration.get('dialog','configuration','menu','current'),
-                  Configuration.get('config','safe_mode'))
-
-            print(Configuration.get('dialog','configuration','safe','set_safe'))
-            Interface.buildmenu(
-                {
-                    None: lambda: _System.saveandexit(),
-                    Configuration.get('dialog','main','yes'): lambda: Configuration.set('config','safe_mode',value=True),
-                    Configuration.get('dialog','main','no'): lambda: Configuration.set('config','safe_mode',value=False)
-                }
-            )
+    def setsafe(value: bool) -> None:
+        Configuration.set('config', 'safe_mode',value=value)
 
     @staticmethod
-    def setkeys() -> None:
-        Configuration.clear()
-        print(Configuration.get('dialog','configuration','menu','current'),
-              Configuration.get('config','key_number'))
-        print(Configuration.get('dialog','configuration','key','set_key'))
-        choice: int = int(
-            input(" --> ")
-        )
-
-        match choice:
-            case  0:
-                _System.saveandexit()
-            case _ if choice in range(2,6):
-                Configuration.set('config','key_number',value=choice)
-            case _:
-                raise ValueError
+    def setkeys(value: int) -> None:
+        Configuration.set('config', 'key_number', value=value)
 
     @staticmethod
-    def setbase() -> None:
-        Configuration.clear()
-        print(Configuration.get('dialog','configuration','menu','current'),
-              Configuration.get('config','pref_base'))
-        print(Configuration.get('dialog','configuration','base','set_base'))
-
-        Interface.buildmenu(
-            {
-                None: lambda: _System.saveandexit(),
-                "Base85": lambda: Configuration.set('config','pref_base',value='b85'),
-                "Base64": lambda: Configuration.set('config','pref_base',value='b64'),
-                "Base64url": lambda: Configuration.set('config','pref_base',value='b64u'),
-                "Base16": lambda: Configuration.set('config','pref_base',value='b16')
-            }
-        )
+    def setbase(value: str) -> None:
+        Configuration.set('config', 'pref_base', value=value)
 
     @staticmethod
-    def setlimit() -> None:
-        Configuration.clear()
-        print(Configuration.get('dialog','configuration','menu','current'),
-              Configuration.get('config','pass_limit'))
-        print(Configuration.get('dialog','configuration','limit','set_limit'))
-        choice: int = int(
-            input(" --> ")
-        )
-
-        match choice:
-            case 0:
-                _System.saveandexit()
-            case _ if choice in range(1,257):
-                Configuration.set('config','pass_limit',value=choice)
-            case _:
-                raise ValueError
+    def setlimit(value: int) -> None:
+        Configuration.set('config', 'pass_limit', value=value)
 
     @staticmethod
-    def setlang() -> None:
-        Configuration.clear()
-
-        print(Configuration.get('dialog','configuration','menu','current'),
-              Configuration.get('config','pref_lang'))
-        print(Configuration.get('dialog','configuration','language','set_language'))
-
-        Interface.buildmenu(
-            {
-                None: lambda: _System.saveandexit(),
-                Configuration.get('dialog','configuration','language','english'): lambda: Configuration.set('config','pref_lang',value='eng'),
-                Configuration.get('dialog','configuration','language','portuguese'): lambda: Configuration.set('config','pref_lang',value='pt-br'),
-                Configuration.get('dialog','configuration','language','russian'): lambda: Configuration.set('config','pref_lang',value='rus')
-            }
-        )
+    def setlang(value: str) -> None:
+        Configuration.set('config', 'pref_lang', value=value)
 
     @staticmethod
-    def setalgorithms() -> None:
-        
-        ############## ############## ##############
-        #            AUXILIARY METHODS             #
-        ############## ############## ##############
-
-        def _modifyalgorithms(algo: Literal['key_hasher','pass_hasher'], menu: dict):
-            Configuration.clear()
-
-            set_hasher = 'set_key' if algo == 'key_hasher' else ('set_hash' if algo == 'pass_hasher' else None)
-
-            print(Configuration.get('dialog','configuration','menu','current'),
-                  Configuration.get('config','algorithm',algo))
-            print(Configuration.get('dialog','configuration','algorithm',set_hasher))
-
-            Interface.buildmenu(
-                menu
-            )
-
-        ############## ############## ##############
-        #           METHOD FUNCTIONALITY           #
-        ############## ############## ##############
-
-        while True:
-            Configuration.clear()
-
-            hashes = [
-                Configuration.get('config','algorithm','key_hasher'),
-                Configuration.get('config','algorithm','pass_hasher')
-            ]
-
-            print(Configuration.get('dialog','configuration','menu','current'),hashes)
-            print(Configuration.get('dialog','configuration','algorithm','menu'))
-            Interface.buildmenu(
-                {
-                    None:
-                        lambda: Configuration.save_and_exit(),
-
-                    Configuration.get('dialog', 'configuration', 'algorithm_parameters', 'keys_algo'):
-                        lambda: _System.handle(
-                            _modifyalgorithms,
-                            "Configuration:setalgo:_modifyalgorithms",
-                            'key_hasher',
-                            {
-                                None: lambda: Configuration.save_and_exit(),
-                                "Blake2b": lambda: Configuration.set('config','algorithm','key_hasher',value='blake'),
-                                "HMAC": lambda: Configuration.set('config','algorithm','key_hasher',value='hmac'),
-                                "Argon2": lambda: Configuration.set('config','algorithm','key_hasher',value='argon')
-                            }
-                        ),
-
-                    Configuration.get('dialog', 'configuration', 'algorithm_parameters', 'pass_algo'):
-                        lambda: _System.handle(
-                            _modifyalgorithms,
-                            "Configuration:setalgo:_modifyalgorithms",
-                            'pass_hasher',
-                            {
-                                None: lambda: Configuration.save_and_exit(),
-                                "Argon2": lambda: Configuration.set('config','algorithm', 'pass_hasher', value='argon'),
-                                "Bcrypt": lambda: Configuration.set('config','algorithm', 'pass_hasher', value='bcrypt'),
-                                "Scrypt": lambda: Configuration.set('config','algorithm', 'pass_hasher', value='scrypt')
-                            }
-                        ),
-
-                    Configuration.get('dialog', 'main', 'edit'):
-                        lambda: Configuration.handle(Configuration.setparameters,"Configuration:setparameters")
-                },
-                start=0
-            )
-
+    def setalgorithms(algo_type: Literal['key_hasher','pass_hasher'], value: str) -> None:
+        Configuration.set('config', 'algorithm', algo_type, value=value)
 
     @staticmethod
-    def setparameters() -> None:
+    def setparameters(algo_type: Literal['key_hasher','pass_hasher'], hasher: str, attribute: str, value: Any) -> None:
+        Configuration.set('config', 'algorithm', 'parameters', algo_type, hasher, attribute, value=value)
 
-        ############## ############## ##############
-        #            AUXILIARY METHODS             #
-        ############## ############## ##############
-        
-        def _listparameters(algo_type: Literal['key_hasher','pass_hasher']) -> None:
-            hasher: str = Configuration.get('config','algorithm',algo_type)
-            param: dict = Configuration.get('config','algorithm','parameters',algo_type,hasher)
-            parameters: list = list(param.keys())
-
-            attribute: str = Interface.getfromparameters(parameters)
-
-            current_value = Configuration.get('config','algorithm','parameters',algo_type,hasher,attribute)
-
-            value = _System.call(
-                _modifyparameters,
-                "Configuration:setparameters:_modifyparameters",
-                attribute,
-                current_value
-            )
-
-            if value is not None:
-                Configuration.set('config','algorithm','parameters',algo_type,hasher,attribute,value=value)
-
-        def _modifyparameters(attribute: str, current_value: Any):
-            vartype = type(current_value)
-
-            print(f"{Configuration.get('dialog','configuration','menu','current')} {current_value}")
-            print(f"{Configuration.get('dialog','main','read')}{attribute}")
-            raw_value = input(" --> ")
-
-            if raw_value == "0": raise StopIteration
-
-            return vartype(raw_value)
-
-        ############## ############## ##############
-        #           METHOD FUNCTIONALITY           #
-        ############## ############## ##############
-
-        Configuration.get('dialog','configuration','algorithm_parameters','set_algo_parameters')
-
-        Interface.buildmenu(
-            {
-                None:
-                    lambda: _System.saveandexit(),
-
-                Configuration.get('dialog','configuration','algorithm_parameters','key_hasher'):
-                    lambda: Configuration.handle(_listparameters,"Configuration:setparameters:_listparameters","key_hasher"),
-
-                Configuration.get('dialog','configuration','algorithm_parameters','pass_hasher'):
-                    lambda: Configuration.handle(_listparameters,"Configuration:setparameters:_listparameters","pass_hasher")
-            }
-        )
 
 ############## ############## ##############
 #                CLASS END                 #
