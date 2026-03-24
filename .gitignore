@@ -1,0 +1,13 @@
+# IDE Files
+.idea/
+.vscode/
+
+# Packing Files
+build/
+dist/
+
+# Cache
+__pycache__/
+
+# Developer Files
+lib/buildlib.sh

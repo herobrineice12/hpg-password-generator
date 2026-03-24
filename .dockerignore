@@ -1,0 +1,9 @@
+.idea
+.vscode
+.git
+build
+dist
+__pycache__
+*.pyc
+*.pyo
+*.pyd

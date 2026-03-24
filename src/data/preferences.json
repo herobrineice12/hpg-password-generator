@@ -1,0 +1,47 @@
+{
+    "config": {
+        "safe_mode": false,
+        "key_number": 5,
+        "pref_base": "b85",
+        "pass_limit": 256,
+        "pref_lang": "eng",
+        "algorithm": {
+            "key_hasher": "blake",
+            "pass_hasher": "argon",
+            "parameters": {
+                "key_hasher": {
+                    "blake": {
+                        "iteration": 400000,
+                        "digest_size": 64
+                    },
+                    "hmac": {
+                        "iterations": 100000,
+                        "dklen": 64
+                    },
+                    "argon": {
+                        "time_cost": 4,
+                        "memory_cost": 85000,
+                        "parallelism": 1,
+                        "hash_len": 64
+                    }
+                },
+                "pass_hasher": {
+                    "argon": {
+                        "time_cost": 20,
+                        "memory_cost": 256000,
+                        "parallelism": 2
+                    },
+                    "bcrypt": {
+                        "rounds": 60
+                    },
+                    "scrypt": {
+                        "n": 262144,
+                        "r": 8,
+                        "p": 2,
+                        "maxmem": 256000
+                    }
+                }
+            }
+        }
+    }
+}
